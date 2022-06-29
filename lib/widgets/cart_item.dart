@@ -24,12 +24,26 @@ class CartItemWidget extends StatelessWidget {
         leading: CircleAvatar(
           child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: FittedBox(child: Text('\$$price')),
+            child: FittedBox(
+              child: Text(
+                '\$$price',
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyMedium!
+                    .copyWith(fontWeight: FontWeight.bold),
+              ),
+            ),
           ),
         ),
         title: Text(title),
         subtitle: Text('Total: \$${price * quantity}'),
-        trailing: Text('x$quantity'),
+        trailing: Text(
+          'x$quantity',
+          style: Theme.of(context)
+              .textTheme
+              .bodyMedium!
+              .copyWith(fontWeight: FontWeight.bold),
+        ),
       ),
     );
   }
