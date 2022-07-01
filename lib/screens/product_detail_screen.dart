@@ -16,8 +16,28 @@ class ProductDetail extends StatelessWidget {
       appBar: AppBar(
         title: Text(loadedProduct.title),
       ),
-      body: Center(
-        child: Image.network(loadedProduct.imageUrl),
+      body: Column(
+        children: [
+          Container(
+            padding: EdgeInsets.all(20),
+            margin: EdgeInsets.symmetric(vertical: 10),
+            height: 300,
+            width: double.infinity,
+            child: Image.network(
+              loadedProduct.imageUrl,
+              filterQuality: FilterQuality.high,
+              fit: BoxFit.cover,
+            ),
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          Text('Price: \$${loadedProduct.price}'),
+          SizedBox(
+            height: 10,
+          ),
+          Text(loadedProduct.description)
+        ],
       ),
     );
   }

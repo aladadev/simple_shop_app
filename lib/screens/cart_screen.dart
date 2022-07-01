@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_app/providers/cart_provider.dart';
+import 'package:shop_app/providers/order_provider.dart';
+import 'package:shop_app/screens/order_screen.dart';
 import 'package:shop_app/widgets/cart_item.dart';
 
 class CartScreen extends StatelessWidget {
@@ -37,7 +39,13 @@ class CartScreen extends StatelessWidget {
                     ),
                   ),
                   ElevatedButton.icon(
-                    onPressed: () {},
+                    onPressed: () {
+                      Provider.of<OrderProvider>(context, listen: false)
+                          .addOrder(cart.getCartItems.values.toList(),
+                              cart.totalAmount);
+                      cart.clearCart();
+                      Navigator.of(context).pushNamed(OrderScreen.routeID);
+                    },
                     icon: Icon(Icons.shopping_cart_checkout_rounded),
                     label: Text('Order Now'),
                   ),
@@ -52,6 +60,7 @@ class CartScreen extends StatelessWidget {
             child: ListView.builder(
               itemCount: cart.cartLength,
               itemBuilder: ((context, index) => CartItemWidget(
+                  productID: cart.getCartItems.keys.toList()[index],
                   id: cart.getCartItems.values.toList()[index].id,
                   price: cart.getCartItems.values.toList()[index].price,
                   quantity: cart.getCartItems.values.toList()[index].quantity,
